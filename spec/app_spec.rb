@@ -15,6 +15,7 @@ describe TxtHandler do
     @config = {
       spreadsheet_key:    '1iEctU4H3IH3wcPo8g_aVfz4hHKhwzklZMir7TMk-6RQ',
       worksheet_index:    0,
+      # Note, test creds
       twilio_account_sid: 'ACb42c4ba98685fe6b93698cff8c738e29',
       twilio_auth_token:  'e2dffee33aa4141b2cea362696a9977e'
     }
