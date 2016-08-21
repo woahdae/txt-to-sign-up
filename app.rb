@@ -6,7 +6,7 @@ get '/' do
   "It's alive!"
 end
 
-post "/sign_up" do
+post "/inbound" do
   check_credentials
 
   TxtHandler.new(
