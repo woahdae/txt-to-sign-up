@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.twilio.com/2010-04-01/Accounts/ACb42c4ba98685fe6b93698cff8c738e29/Messages.json
+    body:
+      encoding: US-ASCII
+      string: To=12532085505&From=15005550006&Body=Unknown+Error
+    headers:
+      Accept:
+      - application/json
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - twilio-ruby/4.11.1 (ruby/x86_64-darwin15 2.3.0-p0)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Authorization:
+      - Basic QUNiNDJjNGJhOTg2ODVmZTZiOTM2OThjZmY4YzczOGUyOTplMmRmZmVlMzNhYTQxNDFiMmNlYTM2MjY5NmE5OTc3ZQ==
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 201
+      message: CREATED
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Headers:
+      - Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match,
+        If-Unmodified-Since
+      Access-Control-Allow-Methods:
+      - GET, POST, DELETE, OPTIONS
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Expose-Headers:
+      - ETag
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sun, 21 Aug 2016 16:20:52 GMT
+      Strict-Transport-Security:
+      - max-age=15768000
+      Twilio-Request-Duration:
+      - '0.054'
+      Twilio-Request-Id:
+      - RQ85c69dd860ce49558b787bdc664ec948
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+      Content-Length:
+      - '776'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"sid": "SMa3c54aca8a3343808fe3d760b15fd25d", "date_created": "Sun,
+        21 Aug 2016 16:20:52 +0000", "date_updated": "Sun, 21 Aug 2016 16:20:52 +0000",
+        "date_sent": null, "account_sid": "ACb42c4ba98685fe6b93698cff8c738e29", "to":
+        "+12532085505", "from": "15005550006", "messaging_service_sid": null, "body":
+        "Unknown Error", "status": "queued", "num_segments": "1", "num_media": "0",
+        "direction": "outbound-api", "api_version": "2010-04-01", "price": null, "price_unit":
+        "USD", "error_code": null, "error_message": null, "uri": "/2010-04-01/Accounts/ACb42c4ba98685fe6b93698cff8c738e29/Messages/SMa3c54aca8a3343808fe3d760b15fd25d.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/ACb42c4ba98685fe6b93698cff8c738e29/Messages/SMa3c54aca8a3343808fe3d760b15fd25d/Media.json"}}'
+    http_version: 
+  recorded_at: Sun, 21 Aug 2016 16:20:54 GMT
+recorded_with: VCR 3.0.3
