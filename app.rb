@@ -7,8 +7,6 @@ get '/' do
 end
 
 post "/inbound" do
-  check_credentials
-
   TxtHandler.new(
     to_number: params['To'],
     from_number: params["From"],
