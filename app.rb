@@ -29,12 +29,13 @@ class TxtHandler
     @config = OpenStruct.new(config_hash)
   end
 
-  attr_reader :from_number, :to_number, :body, :error
+  attr_reader :from_number, :to_number, :body, :error, :email, :name
 
   def initialize(from_number:, to_number:, body:)
-    @from_number = from_number
-    @to_number   = to_number
-    @body        = body
+    @from_number  = from_number
+    @to_number    = to_number
+    @body         = body
+    @name, @email = *self.class.extract_name_email_from_body(body)
   end
 
   def save
@@ -53,16 +54,26 @@ class TxtHandler
   end
 
   def valid_body?
-    if body.include?('@')
+    if name && email
       true
     else
-      @error = "Please include your email address"
+      @error =
+        'Please include your name and email, ex. "Barack Obama, president@whitehouse.gov"'
+
       false
     end
   end
 
   def confirmation_message
     @error ? @error : "Thanks!!! 👍"
+  end
+
+  def self.extract_name_email_from_body(body)
+    body = body.dup
+    email = body.slice!(/([^, ]+@[^, ]+)/)
+    name = body.gsub!(/^[, ]+|[, ]+$/, '')
+
+    [name, email]
   end
 
   private
@@ -74,9 +85,10 @@ class TxtHandler
     worksheet   = spreadsheet.worksheets[config.worksheet_index]
     row         = worksheet.num_rows + 1
 
-    worksheet[row, 1] = body
-    worksheet[row, 2] = from_number
-    worksheet[row, 3] = Time.now.strftime("%-m/%-d/%Y %H:%M:%S")
+    worksheet[row, 1] = name
+    worksheet[row, 2] = email
+    worksheet[row, 3] = from_number
+    worksheet[row, 4] = Time.now.strftime("%-m/%-d/%Y %H:%M:%S")
 
     worksheet.save
   end

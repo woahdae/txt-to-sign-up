@@ -21,12 +21,39 @@ describe TxtHandler do
     }
   end
 
+  describe '::extract_name_email_from_body' do
+    [
+      "Barack Obama, president@whitehouse.gov",
+      "president@whitehouse.gov, Barack Obama",
+      "Barack Obama president@whitehouse.gov",
+      "Barack Obama  president@whitehouse.gov",
+      "Barack Obama,,president@whitehouse.gov",
+    ].each do |body|
+      it "parses \"#{body}\" as Barack Obama, president@whitehouse.gov" do
+        TxtHandler.extract_name_email_from_body(body).must_equal(
+          ["Barack Obama", "president@whitehouse.gov"]
+        )
+      end
+    end
+
+    [
+      ", , Barack, Obama, president@whitehouse.gov",
+      "president@whitehouse.gov Barack, Obama, "
+    ].each do |body|
+      it "parses \"#{body}\" as Barack, Obama, president@whitehouse.gov" do
+        TxtHandler.extract_name_email_from_body(body).must_equal(
+          ["Barack, Obama", "president@whitehouse.gov"]
+        )
+      end
+    end
+  end
+
   describe 'when the senders message has an email address in it' do
     it 'saves a text message to google drive' do
       handler = TxtHandler.new(
         from_number: '12532085505',
         to_number: '15005550006',
-        body: 'woody.peterson@gmail.com'
+        body: 'Woody Peterson, woody.peterson@gmail.com'
       ).tap {|h| h.config = @config}
 
       VCR.use_cassette("saves a text message to google drive", record: :none) do
@@ -46,7 +73,9 @@ describe TxtHandler do
 
       VCR.use_cassette("does not save a text message to google drive", record: :none) do
         handler.save.must_equal false
-        handler.error.must_equal "Please include your email address"
+        handler.error.must_equal(
+          'Please include your name and email, ex. "Barack Obama, president@whitehouse.gov"'
+        )
       end
     end
   end
